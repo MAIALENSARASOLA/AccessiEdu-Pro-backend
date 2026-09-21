@@ -94,6 +94,13 @@ def update_task(task_id):
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
+
+    # Borramos primero las adaptaciones asociadas a esta tarea.
+    # Si no lo hacemos, la base de datos rechaza el borrado de la tarea
+    # porque hay adaptaciones que todavía la referencian (task_id),
+    # y eso provoca un error 500.
+    Adaptation.query.filter_by(task_id=task.id).delete()
+
     db.session.delete(task)
     db.session.commit()
     return jsonify({'message': 'Tarea eliminada'})
