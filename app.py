@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -5,9 +6,22 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Configuración de la base de datos SQLite
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///accessiedu.db'
+# Configuración de la base de datos
+# En Render uso PostgreSQL (Neon). La direccion la leo de la variable DATABASE_URL
+# para no poner la contraseña en el codigo.
+# En mi ordenador esa variable no existe, asi que sigo usando SQLite.
+database_url = os.environ.get('DATABASE_URL')
+
+if database_url:
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///accessiedu.db'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Neon apaga la base de datos cuando no se usa.
+# Con esto se comprueba que la conexion sigue viva antes de hacer una consulta.
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_pre_ping': True}
 
 db = SQLAlchemy(app)
 
