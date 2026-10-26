@@ -37,6 +37,26 @@ Adaptaciones:
 - `PUT /adaptations/<id>`
 - `DELETE /adaptations/<id>`
 
+## Validación
+
+El servidor no se fía solo del formulario de React: comprueba los datos antes de guardarlos y, si algo está mal, responde con un error 400 y un mensaje en JSON (por ejemplo `{"error": "El título es obligatorio."}`).
+
+- Una tarea necesita título (no vale solo con espacios) y la dificultad tiene que ser Fácil, Media o Difícil.
+- Una adaptación necesita tipo y contenido.
+- Se controlan las longitudes máximas de cada campo.
+- Los errores 404 también se devuelven en JSON.
+
+## Tests
+
+Hay tests automáticos con pytest en la carpeta `tests/`. Usan una base de datos SQLite temporal, así que nunca tocan la de Neon. Cubren el CRUD de tareas y adaptaciones, la validación y el borrado de una tarea con adaptaciones (el antiguo error 500).
+
+```
+pip install -r requirements.txt -r requirements-dev.txt
+pytest
+```
+
+En GitHub se ejecutan solos en cada push (GitHub Actions).
+
 ## Cómo arrancarlo en local
 
 ```
