@@ -1,5 +1,9 @@
 # AccessiEdu Pro - Backend
 
+[![Tests](https://github.com/MAIALENSARASOLA/AccessiEdu-Pro-backend/actions/workflows/tests.yml/badge.svg)](https://github.com/MAIALENSARASOLA/AccessiEdu-Pro-backend/actions/workflows/tests.yml)
+
+*English: REST API (Flask + SQLAlchemy + PostgreSQL) for [AccessiEdu Pro](https://github.com/MAIALENSARASOLA/AccessiEdu-Pro), an app to create school tasks and store adapted versions for students with different learning needs. It includes server-side validation, JSON errors and a pytest suite that runs on GitHub Actions.*
+
 Este es el backend de AccessiEdu Pro, mi proyecto final del bootcamp de Full Stack. Es una API en Flask donde se guardan las tareas que crea el profesorado y las adaptaciones de cada una.
 
 - API: https://accessiedu-pro-backend.onrender.com
